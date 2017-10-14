@@ -15,26 +15,35 @@ subreddit = reddit.subreddit('AbsolutelyNormal')
 # http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/FR/eur/en-us/uk/us/anytime/anytime?apikey=ha772136595894388989224959580308
 # http://partners.api.skyscanner.net/apiservices/browseroutes/v1.0/FR/eur/en-US/us/anywhere/anytime/anytime?apikey=prtl6749387986743898559646983194
 def get_flight(country, currency, locale, originPlace, destinationPlace, outboundPartialDate, inboundPartialDate):
-    # headers = {
-    #     'Accept': 'application/json',
-    # }
-    #
-    # params = (
-    #     ('\n  apiKey', 'ha772136595894388989224959580308'),
-    # )
-    # url_build = ('http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/' +
-    #     country + '/' +
-    #     currency + '/' +
-    #     locale + '/' +
-    #     originPlace + '/' +
-    #     destinationPlace + '/' +
-    #     outboundPartialDate + '/' +
-    #     inboundPartialDate)
-    return requests.get('http://partners.api.skyscanner.net/apiservices/browseroutes/v1.0/FR/eur/en-US/us/anywhere/anytime/anytime?apikey=ha772136595894388989224959580308')
+    headers = {
+        'Accept': 'application/json',
+    }
+
+    params = (
+        ('\n  apiKey', 'ha772136595894388989224959580308'),
+    )
+    url_build = ('http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/' +
+        country + '/' +
+        currency + '/' +
+        locale + '/' +
+        originPlace + '/' +
+        destinationPlace + '/' +
+        outboundPartialDate + '/' +
+        inboundPartialDate +
+        '?apikey=ha772136595894388989224959580308')
+
+    print(url_build)
+    # print('http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/FR/eur/en-US/us/anywhere/anytime/anytime?apikey=ha772136595894388989224959580308')
+
+    r = requests.get(url_build)
+
+    word_info = json.loads(r.text)['Quotes'][0]
+
+    return word_info
     # requests.get('http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/' +
     #     url_build, headers=headers, params=params)
 
-get_flight('FR', 'eur', 'en-US','uk', 'anywhere', 'anytime', 'anytime')
+print(get_flight('FR', 'eur', 'en-US','us', 'anywhere', 'anytime', 'anytime'))
 #
 # # gets top definition of word,
 # def get_def(word):
